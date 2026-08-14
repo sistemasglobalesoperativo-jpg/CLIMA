@@ -10,12 +10,15 @@
   --white:#fff;--soft:#eef2f7;
 }
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#03163f}
 body{
-  font-family:Arial,Helvetica,sans-serif;background:#03163f;color:#fff;
+  font-family:Arial,Helvetica,sans-serif;color:#fff;
 }
 .app{
-  width:100vw;height:100vh;min-height:560px;padding:1.1vh .85vw;
+  width:1920px;height:1080px;padding:12px 16px;
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  transform-origin:center center;
   display:grid;grid-template-rows:26% 68% 6%;
   background:
     radial-gradient(circle at 40% 5%,rgba(255,255,255,.08),transparent 28%),
@@ -26,16 +29,16 @@ body{
   background:linear-gradient(100deg,#fff 0%,#fff 34%,#d9dfea 48%,#071b4b 75%,#03163f 100%);
   border-radius:0 0 18px 18px;overflow:hidden;
 }
-.logoWrap{display:flex;align-items:center;padding:1.2vh 2vw;background:#fff}
+.logoWrap{display:flex;align-items:center;padding:12px 38px;background:#fff}
 .logo{
-  width:min(42vw,620px);height:22vh;object-fit:contain;object-position:left center;
+  width:min(438px,620px);height:222px;object-fit:contain;object-position:left center;
 }
 .clockWrap{
-  display:flex;align-items:center;justify-content:center;gap:1.4vw;
-  padding:1vh 1.5vw;
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  padding:10px 28px;
 }
 .clockIcon{
-  width:10vh;height:10vh;min-width:72px;min-height:72px;border:4px solid #fff;
+  width:100px;height:100px;min-width:72px;min-height:72px;border:4px solid #fff;
   border-radius:50%;position:relative;
 }
 .clockIcon:before{content:"";position:absolute;left:50%;top:50%;width:3px;height:34%;
@@ -44,57 +47,52 @@ body{
   background:#fff;transform-origin:50% 100%;transform:translate(-50%,-100%) rotate(125deg)}
 .clockText{text-align:left;line-height:.95}
 .time{font-size:clamp(42px,5.8vw,104px);font-weight:900;white-space:nowrap}
-.ampm{font-size:clamp(20px,2vw,36px);font-weight:700;margin-left:.4vw}
-.date{font-size:clamp(18px,2vw,35px);font-weight:700;margin-top:1.2vh;white-space:nowrap}
+.ampm{font-size:clamp(20px,38px,36px);font-weight:700;margin-left:.4vw}
+.date{font-size:clamp(18px,38px,35px);font-weight:700;margin-top:13px;white-space:nowrap}
 .cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1.05vw;
-  padding:1.6vh 1.3vw 0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  padding:17px 25px 0;
 }
 .card{
-  border-radius:25px;padding:2.2vh 1.5vw;display:flex;flex-direction:column;
+  border-radius:25px;padding:2.22px 29px;display:flex;flex-direction:column;
   align-items:center;text-align:center;overflow:hidden;border:2px solid;
 }
 .weather{background:linear-gradient(150deg,#073f98,#042d78);border-color:#1682ff}
 .pico{background:linear-gradient(150deg,#f00d18,#bf0008);border-color:#ff2a2a}
 .dolar{background:linear-gradient(150deg,#008b44,#00652f);border-color:#00b95a}
-.title{font-size:clamp(23px,2.25vw,42px);font-weight:900;margin:0;line-height:1.05}
-.subtitle{font-size:clamp(15px,1.45vw,27px);font-weight:800;margin-top:.9vh}
-.weatherIcon{height:18vh;display:flex;align-items:center;justify-content:center;font-size:clamp(70px,7vw,135px)}
-.temp{font-size:clamp(65px,8.2vw,145px);font-weight:900;line-height:.9}
-.condition{font-size:clamp(18px,1.65vw,31px);font-weight:700;margin-top:1.2vh}
-.carIcon{font-size:clamp(58px,5vw,95px);margin-top:1.4vh}
-.today{font-size:clamp(20px,2vw,36px);font-weight:900;margin-top:.7vh}
+.title{font-size:clamp(42px,43px,42px);font-weight:900;margin:0;line-height:1.05}
+.subtitle{font-size:clamp(27px,28px,27px);font-weight:800;margin-top:.9vh}
+.weatherIcon{height:194px;display:flex;align-items:center;justify-content:center;font-size:clamp(70px,135px,135px)}
+.temp{font-size:clamp(65px,8.38px,145px);font-weight:900;line-height:.9}
+.condition{font-size:clamp(18px,32px,31px);font-weight:700;margin-top:13px}
+.carIcon{font-size:clamp(58px,5vw,95px);margin-top:15px}
+.today{font-size:clamp(20px,38px,36px);font-weight:900;margin-top:.7vh}
 .plates{
   background:#f8f8f8;color:#c60009;border-radius:17px;width:82%;
   padding:.4vh .6vw;font-size:clamp(48px,6vw,110px);font-weight:900;
   margin:.9vh 0;
 }
-.category{font-size:clamp(18px,1.65vw,31px);font-weight:900}
+.category{font-size:clamp(18px,32px,31px);font-weight:900}
 .line{width:82%;height:2px;background:rgba(255,255,255,.9);margin:1vh 0}
-.hours{font-size:clamp(18px,1.55vw,29px);font-weight:800;line-height:1.35}
+.hours{font-size:clamp(18px,30px,29px);font-weight:800;line-height:1.35}
 .moneyIcon{
-  margin-top:1.4vh;width:8.5vh;height:8.5vh;border-radius:50%;
+  margin-top:15px;width:8.5vh;height:8.5vh;border-radius:50%;
   background:#fff;color:#007638;display:flex;align-items:center;justify-content:center;
   font-size:clamp(48px,5vw,88px);font-weight:900;
 }
-.usd{font-size:clamp(21px,2vw,36px);font-weight:800;margin-top:2vh}
-.value{font-size:clamp(45px,5.2vw,94px);font-weight:900;line-height:1;margin-top:1vh;white-space:nowrap}
-.cop{font-size:clamp(22px,2.1vw,38px);font-weight:900;margin-top:.5vh}
+.usd{font-size:clamp(21px,38px,36px);font-weight:800;margin-top:22px}
+.value{font-size:clamp(45px,5.38px,94px);font-weight:900;line-height:1;margin-top:1vh;white-space:nowrap}
+.cop{font-size:clamp(22px,40px,38px);font-weight:900;margin-top:.5vh}
 .update{
   margin-top:auto;margin-bottom:.5vh;width:90%;padding:1vh .8vw;border-radius:18px;
-  background:rgba(0,0,0,.22);font-size:clamp(14px,1.25vw,23px);font-weight:700;
+  background:rgba(0,0,0,.22);font-size:clamp(14px,24px,42px);font-weight:700;
 }
 .footer{
-  display:flex;align-items:center;justify-content:center;gap:.7vw;
-  font-size:clamp(14px,1.25vw,23px);color:#d8deeb;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:.135px;
+  font-size:clamp(14px,24px,42px);color:#d8deeb;font-weight:600;
 }
 .sync{font-size:1.3em}
-@media(max-width:900px){
- .app{grid-template-rows:22% 72% 6%}.header{grid-template-columns:45% 55%}
- .clockIcon{display:none}.logo{width:40vw}
- .cards{gap:.7vw;padding-left:.7vw;padding-right:.7vw}
- .card{border-radius:16px;padding-left:.6vw;padding-right:.6vw}
-}
+
 </style>
 </head>
 <body>
@@ -246,6 +244,15 @@ async function refresh(){
 refresh();
 setInterval(refresh,5*60*1000);
 setInterval(updatePico,60*1000);
+
+/* Canvas real: 1920x1080. En pantallas con otra resolución se escala proporcionalmente. */
+function scaleCanvas(){
+  const app=document.querySelector('.app');
+  const scale=Math.min(window.innerWidth/1920, window.innerHeight/1080);
+  app.style.transform=`translate(-50%,-50%) scale(${scale})`;
+}
+window.addEventListener('resize',scaleCanvas);
+scaleCanvas();
 </script>
 </body>
 </html>
