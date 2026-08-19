@@ -2,15 +2,21 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1080, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=800, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Expires" content="0">
 <title>Sistemas Globales</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{
-  width:1080px;
-  height:1920px;
+html{
+  width:800px;
+  height:2040px;
+  overflow:hidden;
+  background:#000;
+}
+body{
+  width:800px;
+  height:2040px;
   overflow:hidden;
   background:#000;
   color:#fff;
@@ -18,28 +24,29 @@ html,body{
   -webkit-font-smoothing:antialiased;
 }
 #app{
-  width:1080px;
-  height:1920px;
+  width:800px;
+  height:2040px;
   display:flex;
   flex-direction:column;
   background:#000;
   position:fixed;
-  top:0;left:0;
+  top:0;left:0;right:0;bottom:0;
 }
 
-/* HEADER */
+/* ── HEADER ── */
 .head{
-  height:220px;
+  width:800px;
+  height:200px;
   flex:none;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 60px;
-  border-bottom:1px solid #222;
+  padding:0 40px;
+  border-bottom:2px solid #222;
   position:relative;
 }
 .head img{
-  height:160px;
+  height:140px;
   width:auto;
   display:block;
   filter:brightness(0) invert(1);
@@ -49,123 +56,128 @@ html,body{
   line-height:1;
 }
 .clock .t{
-  font-size:110px;
+  font-size:90px;
   font-weight:900;
-  letter-spacing:-3px;
+  letter-spacing:-2px;
   display:block;
   white-space:nowrap;
+  color:#fff;
 }
 .clock .ap{
-  font-size:40px;
+  font-size:32px;
   font-weight:700;
-  color:rgba(255,255,255,0.65);
+  color:rgba(255,255,255,0.6);
+  display:block;
+  margin-top:4px;
+}
+.clock .d{
+  font-size:26px;
+  font-weight:500;
+  color:rgba(255,255,255,0.45);
   display:block;
   margin-top:6px;
 }
-.clock .d{
-  font-size:34px;
-  font-weight:500;
-  color:rgba(255,255,255,0.5);
-  display:block;
-  margin-top:8px;
-}
 .tricolor{
   position:absolute;
-  left:60px;right:60px;bottom:0;
+  left:40px;right:40px;bottom:0;
   height:5px;
   background:linear-gradient(90deg,#5B9BFF 0 33.34%,#FF6A5E 33.34% 66.67%,#48D98A 66.67% 100%);
 }
 
-/* STAGE - ocupa el resto */
+/* ── STAGE ── */
 #stage{
-  flex:1;
+  width:800px;
+  height:1840px;
   position:relative;
   overflow:hidden;
 }
 
-/* PANELS */
+/* ── PANELS ── */
 .panel{
   position:absolute;
-  inset:0;
+  top:0;left:0;
+  width:800px;
+  height:1840px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:60px;
-  padding:80px 80px 120px;
+  gap:40px;
+  padding:60px 50px 100px;
   animation:entra .85s cubic-bezier(.2,.85,.2,1) both;
 }
 .panel.b{background:#0E2A63}
 .panel.r{background:#8E1610}
 .panel.g{background:#0A5730}
-.panel .glow{
+.glow{
   position:absolute;
-  top:-20%;left:10%;
-  width:80%;height:80%;
+  top:-20%;left:5%;
+  width:90%;height:80%;
   pointer-events:none;
 }
-.panel.b .glow{background:radial-gradient(circle,rgba(91,155,255,.5) 0%,rgba(91,155,255,0) 65%)}
-.panel.r .glow{background:radial-gradient(circle,rgba(255,106,94,.45) 0%,rgba(255,106,94,0) 65%)}
-.panel.g .glow{background:radial-gradient(circle,rgba(72,217,138,.4) 0%,rgba(72,217,138,0) 65%)}
+.panel.b .glow{background:radial-gradient(circle,rgba(91,155,255,.45) 0%,transparent 65%)}
+.panel.r .glow{background:radial-gradient(circle,rgba(255,106,94,.4) 0%,transparent 65%)}
+.panel.g .glow{background:radial-gradient(circle,rgba(72,217,138,.35) 0%,transparent 65%)}
 
 .art{animation:icono 1s cubic-bezier(.2,.85,.2,1) .1s both}
-.art > *{animation:flota 6.5s ease-in-out infinite}
-.body{text-align:center;animation:sube .9s cubic-bezier(.2,.85,.2,1) .18s both}
+.art>*{animation:flota 6.5s ease-in-out infinite}
+.body{text-align:center;width:100%;animation:sube .9s cubic-bezier(.2,.85,.2,1) .18s both}
 
 .kicker{
-  font-size:58px;
+  font-size:44px;
   font-weight:700;
-  letter-spacing:.2em;
+  letter-spacing:.18em;
   color:rgba(255,255,255,.75);
-  margin-bottom:20px;
+  margin-bottom:16px;
+  text-transform:uppercase;
 }
 .rule{
-  height:8px;
+  height:7px;
   border-radius:4px;
-  width:220px;
-  margin:30px auto;
+  width:180px;
+  margin:28px auto;
 }
 .panel.b .rule{background:#5B9BFF}
 .panel.r .rule{background:#FF6A5E}
 .panel.g .rule{background:#48D98A}
 
 .mega{
-  font-size:260px;
+  font-size:210px;
   font-weight:900;
-  letter-spacing:-6px;
+  letter-spacing:-5px;
   line-height:.9;
   font-variant-numeric:tabular-nums;
   white-space:nowrap;
 }
 .note{
-  font-size:56px;
+  font-size:44px;
   font-weight:500;
   line-height:1.2;
   margin-top:10px;
 }
 
-/* Placa */
+/* placa */
 .plate{
   display:inline-block;
   position:relative;
   overflow:hidden;
   background:#fff;
-  border-radius:28px;
-  padding:16px 70px;
-  margin-top:20px;
+  border-radius:24px;
+  padding:14px 60px;
+  margin-top:16px;
 }
 .plate i{
   position:absolute;top:0;bottom:0;width:26%;
   animation:barrido 3.4s ease-in-out infinite;
-  background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(142,22,16,.18) 50%,rgba(255,255,255,0) 100%);
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(142,22,16,.18) 50%,rgba(255,255,255,0));
 }
 .plate b{
   position:relative;
   display:block;
-  font-size:260px;
+  font-size:210px;
   font-weight:900;
   color:#8E1610;
-  letter-spacing:10px;
+  letter-spacing:8px;
   line-height:1;
   font-variant-numeric:tabular-nums;
   white-space:nowrap;
@@ -173,12 +185,12 @@ html,body{
 .libre{
   display:inline-flex;
   align-items:center;
-  gap:20px;
+  gap:16px;
   background:#fff;
-  border-radius:28px;
-  padding:30px 70px;
-  margin-top:20px;
-  font-size:90px;
+  border-radius:24px;
+  padding:24px 60px;
+  margin-top:16px;
+  font-size:80px;
   font-weight:700;
   color:#0C6B33;
   line-height:1;
@@ -186,48 +198,51 @@ html,body{
 
 /* TRM */
 .coin{
-  width:340px;height:340px;
+  width:280px;height:280px;
   border-radius:50%;
   background:#fff;
   display:flex;align-items:center;justify-content:center;
-  font-size:220px;font-weight:900;color:#0A5730;line-height:1;
+  font-size:180px;font-weight:900;color:#0A5730;line-height:1;
 }
 .trm{
-  font-size:190px;
+  font-size:150px;
   font-weight:900;
-  letter-spacing:-5px;
+  letter-spacing:-4px;
   line-height:.92;
   font-variant-numeric:tabular-nums;
   white-space:nowrap;
-  margin-top:20px;
+  margin-top:16px;
 }
 .chip{
-  display:inline-flex;align-items:center;gap:20px;
+  display:inline-flex;align-items:center;gap:16px;
   background:rgba(0,0,0,.3);
-  border-radius:20px;
-  padding:24px 50px;
-  margin-top:20px;
+  border-radius:18px;
+  padding:20px 40px;
+  margin-top:16px;
 }
-.chip .a{font-size:56px;font-weight:700;line-height:1}
-.chip .v{font-size:52px;font-weight:700;line-height:1.15;white-space:nowrap}
+.chip .a{font-size:46px;font-weight:700;line-height:1}
+.chip .v{font-size:42px;font-weight:700;line-height:1.15;white-space:nowrap}
 
-/* Dots */
+/* dots */
 .dots{
-  position:absolute;left:0;right:0;bottom:50px;
+  position:absolute;
+  left:0;right:0;bottom:36px;
   display:flex;align-items:center;justify-content:center;
-  gap:20px;pointer-events:none;z-index:3;
+  gap:16px;pointer-events:none;z-index:10;
 }
 .dots i{
-  height:16px;width:16px;
+  height:14px;width:14px;
   border-radius:999px;background:#fff;
-  opacity:.35;transition:width .5s ease,opacity .5s ease;
+  opacity:.35;
+  transition:width .5s,opacity .5s;
+  display:inline-block;
 }
-.dots i.on{width:80px;opacity:1}
+.dots i.on{width:70px;opacity:1}
 
-@keyframes entra{from{opacity:0;transform:translateY(80px)}to{opacity:1;transform:translateY(0)}}
-@keyframes sube{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes entra{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sube{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes icono{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
-@keyframes flota{0%,100%{transform:translateY(-12px)}50%{transform:translateY(12px)}}
+@keyframes flota{0%,100%{transform:translateY(-10px)}50%{transform:translateY(10px)}}
 @keyframes barrido{0%{transform:translateX(-130%)}100%{transform:translateX(420%)}}
 </style>
 </head>
@@ -251,18 +266,14 @@ html,body{
 </div>
 <script>
 (function(){
-  var SEG = 8;
-  var REFRESCO = 10;
-  var LAT = 10.391, LON = -75.4794;
-  var PYP = {1:'1 y 2', 2:'3 y 4', 3:'5 y 6', 4:'7 y 8', 5:'9 y 0'};
-  var DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  function p2(n){return (n<10?'0':'')+n;}
-  function $(id){return document.getElementById(id);}
-  function miles(n,dec){
-    var s=Number(n).toFixed(dec).split('.');
-    return s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(s[1]?','+s[1]:'');
-  }
+  var SEG=8, REFRESCO=10;
+  var LAT=10.391, LON=-75.4794;
+  var PYP={1:'1 y 2',2:'3 y 4',3:'5 y 6',4:'7 y 8',5:'9 y 0'};
+  var DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  function p2(n){return(n<10?'0':'')+n;}
+  function $(i){return document.getElementById(i);}
+  function miles(n,d){var s=Number(n).toFixed(d).split('.');return s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(s[1]?','+s[1]:'');}
 
   var datos={clima:null,trm:null};
 
@@ -275,15 +286,15 @@ html,body{
   }
   reloj(); setInterval(reloj,1000);
 
-  // ICONOS SVG 400x400
-  var SOL='<svg viewBox="0 0 100 100" width="380" height="380"><circle cx="50" cy="50" r="22" fill="#FFC93C"/><g stroke="#FFC93C" stroke-width="7" stroke-linecap="round"><line x1="50" y1="14" x2="50" y2="4"/><line x1="50" y1="96" x2="50" y2="86"/><line x1="14" y1="50" x2="4" y2="50"/><line x1="96" y1="50" x2="86" y2="50"/><line x1="25" y1="25" x2="18" y2="18"/><line x1="82" y1="82" x2="75" y2="75"/><line x1="75" y1="25" x2="82" y2="18"/><line x1="18" y1="82" x2="25" y2="75"/></g></svg>';
-  var SOL_NUBE='<svg viewBox="0 0 120 100" width="440" height="360"><circle cx="40" cy="35" r="20" fill="#FFC93C"/><g stroke="#FFC93C" stroke-width="6" stroke-linecap="round"><line x1="40" y1="7" x2="40" y2="0"/><line x1="12" y1="35" x2="5" y2="35"/><line x1="20" y1="15" x2="15" y2="10"/><line x1="60" y1="15" x2="65" y2="10"/></g><path d="M36 90h52a18 18 0 0 0 1-36 24 24 0 0 0-45-8 17 17 0 0 0-8 44z" fill="rgba(255,255,255,.92)"/></svg>';
-  var LLUVIA='<svg viewBox="0 0 120 110" width="440" height="400"><path d="M30 68h56a19 19 0 0 0 1-38 25 25 0 0 0-47-8 18 18 0 0 0-10 46z" fill="rgba(255,255,255,.92)"/><g stroke="#7FC4FF" stroke-width="8" stroke-linecap="round"><line x1="40" y1="78" x2="33" y2="100"/><line x1="60" y1="78" x2="53" y2="100"/><line x1="80" y1="78" x2="73" y2="100"/></g></svg>';
-  var NOCHE='<svg viewBox="0 0 100 100" width="380" height="380"><path d="M62 18a32 32 0 1 0 18 56 27 27 0 0 1-18-56z" fill="#E8EEFF"/><circle cx="82" cy="28" r="4" fill="#E8EEFF"/><circle cx="90" cy="48" r="3" fill="#E8EEFF"/></svg>';
-  var CARRO='<svg viewBox="0 0 200 110" width="500" height="280"><path d="M12 74h176v-14c0-9-5-14-14-16l-24-4-15-20c-4-5-9-7-15-7H80c-6 0-11 2-15 7L50 60l-24 4c-9 2-14 7-14 16v14z" fill="rgba(255,255,255,.95)"/><path d="M74 44h52l10 16H64z" fill="#8E1610" opacity=".5"/><circle cx="48" cy="80" r="16" fill="rgba(255,255,255,.95)"/><circle cx="152" cy="80" r="16" fill="rgba(255,255,255,.95)"/><circle cx="48" cy="80" r="7" fill="#8E1610"/><circle cx="152" cy="80" r="7" fill="#8E1610"/></svg>';
-  var CHECK='<svg viewBox="0 0 24 24" width="100" height="100"><path d="M9.6 17.6 4.4 12.4l1.7-1.7 3.5 3.5 8-8 1.7 1.7z" fill="#0C6B33"/></svg>';
+  // SVG ICONOS
+  var SOL='<svg viewBox="0 0 100 100" width="300" height="300"><circle cx="50" cy="50" r="22" fill="#FFC93C"/><g stroke="#FFC93C" stroke-width="7" stroke-linecap="round"><line x1="50" y1="14" x2="50" y2="4"/><line x1="50" y1="96" x2="50" y2="86"/><line x1="14" y1="50" x2="4" y2="50"/><line x1="96" y1="50" x2="86" y2="50"/><line x1="25" y1="25" x2="18" y2="18"/><line x1="75" y1="75" x2="82" y2="82"/><line x1="75" y1="25" x2="82" y2="18"/><line x1="25" y1="75" x2="18" y2="82"/></g></svg>';
+  var SOL_NUBE='<svg viewBox="0 0 120 100" width="340" height="280"><circle cx="40" cy="35" r="20" fill="#FFC93C"/><g stroke="#FFC93C" stroke-width="6" stroke-linecap="round"><line x1="40" y1="7" x2="40" y2="0"/><line x1="12" y1="35" x2="5" y2="35"/><line x1="20" y1="15" x2="15" y2="10"/><line x1="60" y1="15" x2="65" y2="10"/></g><path d="M36 90h52a18 18 0 0 0 1-36 24 24 0 0 0-45-8 17 17 0 0 0-8 44z" fill="rgba(255,255,255,.92)"/></svg>';
+  var LLUVIA='<svg viewBox="0 0 120 110" width="340" height="300"><path d="M30 68h56a19 19 0 0 0 1-38 25 25 0 0 0-47-8 18 18 0 0 0-10 46z" fill="rgba(255,255,255,.92)"/><g stroke="#7FC4FF" stroke-width="8" stroke-linecap="round"><line x1="40" y1="78" x2="33" y2="100"/><line x1="60" y1="78" x2="53" y2="100"/><line x1="80" y1="78" x2="73" y2="100"/></g></svg>';
+  var NOCHE='<svg viewBox="0 0 100 100" width="300" height="300"><path d="M62 18a32 32 0 1 0 18 56 27 27 0 0 1-18-56z" fill="#E8EEFF"/><circle cx="82" cy="28" r="4" fill="#E8EEFF"/><circle cx="90" cy="48" r="3" fill="#E8EEFF"/></svg>';
+  var CARRO='<svg viewBox="0 0 200 110" width="420" height="230"><path d="M12 74h176v-14c0-9-5-14-14-16l-24-4-15-20c-4-5-9-7-15-7H80c-6 0-11 2-15 7L50 60l-24 4c-9 2-14 7-14 16v14z" fill="rgba(255,255,255,.95)"/><path d="M74 44h52l10 16H64z" fill="#8E1610" opacity=".5"/><circle cx="48" cy="80" r="16" fill="rgba(255,255,255,.95)"/><circle cx="152" cy="80" r="16" fill="rgba(255,255,255,.95)"/><circle cx="48" cy="80" r="7" fill="#8E1610"/><circle cx="152" cy="80" r="7" fill="#8E1610"/></svg>';
+  var CHECK='<svg viewBox="0 0 24 24" width="80" height="80"><path d="M9.6 17.6 4.4 12.4l1.7-1.7 3.5 3.5 8-8 1.7 1.7z" fill="#0C6B33"/></svg>';
 
-  function claseClima(code,dia){
+  function icoClima(code,dia){
     if(!dia) return NOCHE;
     if(code===0||code===1) return SOL;
     if(code>=51) return LLUVIA;
@@ -300,21 +311,18 @@ html,body{
     return 'Parcialmente nublado';
   }
 
-  // PANEL CLIMA
   function panelClima(){
     var c=datos.clima;
-    var ico=c?claseClima(c.weather_code,c.is_day===1):SOL_NUBE;
     return '<div class="panel b"><div class="glow"></div>'+
-      '<div class="art">'+ico+'</div>'+
+      '<div class="art">'+(c?icoClima(c.weather_code,c.is_day===1):SOL_NUBE)+'</div>'+
       '<div class="body">'+
-        '<div class="kicker">CLIMA EN CARTAGENA</div>'+
+        '<div class="kicker">Clima en Cartagena</div>'+
         '<div class="mega">'+(c?Math.round(c.temperature_2m)+'°':'--°')+'</div>'+
         '<div class="rule"></div>'+
         '<div class="note">'+(c?textoClima(c.weather_code):'Cargando...')+'</div>'+
       '</div></div>';
   }
 
-  // PANEL PICO Y PLACA
   function panelPYP(){
     var dig=PYP[new Date().getDay()];
     var caja=dig
@@ -323,37 +331,31 @@ html,body{
     return '<div class="panel r"><div class="glow"></div>'+
       '<div class="art">'+CARRO+'</div>'+
       '<div class="body">'+
-        '<div class="kicker">PICO Y PLACA &middot; '+(dig?'HOY NO CIRCULAN':'HOY CIRCULAN TODOS')+'</div>'+
+        '<div class="kicker">Pico y Placa &middot; Cartagena</div>'+
         caja+
         '<div class="rule"></div>'+
         '<div class="note">'+(dig?'7:00–9:00 a.m. &nbsp;·&nbsp; 6:00–8:00 p.m.':'Circulación libre todo el día')+'</div>'+
       '</div></div>';
   }
 
-  // PANEL TRM
   function panelTRM(){
-    var t=datos.trm,cuerpo;
-    if(t){
-      var sube=t.variacion>=0;
-      cuerpo='<div class="trm">$'+miles(t.valor,2)+'</div>'+
-        '<div class="rule"></div>'+
-        '<div class="chip"><span class="a">'+(sube?'▲':'▼')+'</span>'+
-        '<span class="v">'+(sube?'+':'−')+miles(Math.abs(t.variacion),2)+
-        ' ('+miles(Math.abs(t.variacionPct),2)+'%)</span></div>';
-    } else {
-      cuerpo='<div class="trm">---</div><div class="rule"></div>'+
-        '<div class="chip"><span class="v">Cargando...</span></div>';
-    }
+    var t=datos.trm;
+    var cuerpo=t
+      ?'<div class="trm">$'+miles(t.valor,2)+'</div><div class="rule"></div>'+
+        '<div class="chip"><span class="a">'+(t.variacion>=0?'▲':'▼')+'</span>'+
+        '<span class="v">'+(t.variacion>=0?'+':'−')+miles(Math.abs(t.variacion),2)+
+        ' ('+miles(Math.abs(t.variacionPct),2)+'%)</span></div>'
+      :'<div class="trm">---</div><div class="rule"></div><div class="chip"><span class="v">Cargando...</span></div>';
     return '<div class="panel g"><div class="glow"></div>'+
       '<div class="art"><div class="coin">$</div></div>'+
-      '<div class="body"><div class="kicker">DÓLAR HOY &middot; TRM OFICIAL</div>'+cuerpo+'</div></div>';
+      '<div class="body"><div class="kicker">Dólar HOY &middot; TRM Oficial</div>'+cuerpo+'</div></div>';
   }
 
-  // ROTACIÓN
   var PANELES=[panelClima,panelPYP,panelTRM];
   var idx=0;
   var stage=$('stage');
   var dots=[$('d0'),$('d1'),$('d2')];
+
   function pintar(){
     var prev=stage.querySelector('.panel');
     if(prev)prev.remove();
@@ -364,27 +366,24 @@ html,body{
   pintar();
   setInterval(rotar,SEG*1000);
 
-  // APIS
   function cargarClima(){
-    return fetch('https://api.open-meteo.com/v1/forecast?latitude='+LAT+'&longitude='+LON+'&current=temperature_2m,weather_code,is_day&timezone=America%2FBogota',{cache:'no-store'})
+    fetch('https://api.open-meteo.com/v1/forecast?latitude='+LAT+'&longitude='+LON+'&current=temperature_2m,weather_code,is_day&timezone=America%2FBogota',{cache:'no-store'})
       .then(function(r){return r.json();})
-      .then(function(j){datos.clima=j.current;pintar();});
+      .then(function(j){datos.clima=j.current;pintar();})
+      .catch(function(){});
   }
   function cargarTRM(){
-    return fetch('https://www.datos.gov.co/resource/32sa-8pi3.json?$order=vigenciadesde%20DESC&$limit=2',{cache:'no-store'})
+    fetch('https://www.datos.gov.co/resource/32sa-8pi3.json?$order=vigenciadesde%20DESC&$limit=2',{cache:'no-store'})
       .then(function(r){return r.json();})
       .then(function(f){
         var v=parseFloat(f[0].valor),p=parseFloat(f[1].valor);
         datos.trm={valor:v,variacion:v-p,variacionPct:((v-p)/p)*100};
         pintar();
-      });
+      }).catch(function(){});
   }
-  function refrescar(){
-    cargarClima().catch(function(){});
-    cargarTRM().catch(function(){});
-  }
-  refrescar();
-  setInterval(refrescar,REFRESCO*60000);
+
+  cargarClima(); cargarTRM();
+  setInterval(function(){cargarClima();cargarTRM();},REFRESCO*60000);
   setTimeout(function(){location.reload();},30*60000);
 })();
 </script>
