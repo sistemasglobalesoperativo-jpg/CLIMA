@@ -25,59 +25,51 @@ html,body{
 }
 
 /* =========================================================
-   LIENZO FIJO 1920x1080
-   Todo el diseño se construye en esta resolución y luego
-   VNNOX/VPlayer escala el lienzo completo.
-   ========================================================= */
-/* =========================================================
-   ADAPTACIÓN VNNOX / VPLAYER
-   Se evita calc() dentro de transform porque algunos WebView
-   antiguos (incluido Android) pueden no interpretarlo bien.
-   El tamaño y la posición se calculan por JavaScript.
+   V6 — VNNOX / VPLAYER: LIENZO REALMENTE RESPONSIVO
+   No se usa transform:scale() ni un canvas fijo de 1920x1080.
+   El propio documento ocupa exactamente el viewport que VNNOX
+   entrega al navegador. Esto evita que el contenido quede en
+   una miniatura dentro de la pantalla.
    ========================================================= */
 body{
-  position:fixed;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
+  width:100vw;
+  height:100vh;
+  min-width:0;
+  min-height:0;
   overflow:hidden;
   background:#000;
 }
 
 #app{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:1920px;
-  height:1080px;
-  margin-left:-960px;
-  margin-top:-540px;
+  position:relative;
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  margin:0;
   overflow:hidden;
   background:#000;
-  transform-origin:center center;
-  transform:scale(1);
-  -webkit-transform-origin:center center;
-  -webkit-transform:scale(1);
+  transform:none !important;
+  -webkit-transform:none !important;
 }
 
 /* ── Cabecera ───────────────────────────────────────────── */
 .head{
   position:relative;
   width:100%;
-  height:170px;
+  height:15.74vh;
   flex:none;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:40px;
-  padding:0 70px;
+  gap:2.08vw;
+  padding:0 3.65vw;
   overflow:hidden;
 }
 
 .head img{
   width:auto;
-  height:112px;
+  height:clamp(36px, 5.83vw, 112px);
   max-width:620px;
   object-fit:contain;
   display:block;
@@ -94,7 +86,7 @@ body{
 }
 
 .clock .t{
-  font-size:92px;
+  font-size:clamp(28px, 4.79vw, 92px);
   font-weight:700;
   letter-spacing:-.035em;
   line-height:.9;
@@ -103,14 +95,14 @@ body{
 }
 
 .clock .ap{
-  font-size:30px;
+  font-size:clamp(12px, 1.56vw, 30px);
   font-weight:700;
   color:rgba(255,255,255,.6);
   white-space:nowrap;
 }
 
 .clock .d{
-  font-size:28px;
+  font-size:clamp(11px, 1.46vw, 28px);
   font-weight:500;
   color:rgba(255,255,255,.5);
   white-space:nowrap;
@@ -119,8 +111,8 @@ body{
 
 .tricolor{
   position:absolute;
-  left:70px;
-  right:70px;
+  left:3.65vw;
+  right:3.65vw;
   bottom:0;
   height:4px;
   opacity:.9;
@@ -135,7 +127,7 @@ body{
 /* ── Escenario ──────────────────────────────────────────── */
 #stage{
   width:100%;
-  height:910px;
+  height:84.26vh;
   position:relative;
   overflow:hidden;
 }
@@ -147,7 +139,7 @@ body{
   grid-template-columns:30% 70%;
   align-items:center;
   gap:0;
-  padding:0 95px;
+  padding:0 4.95vw;
   overflow:hidden;
   animation:entra .85s cubic-bezier(.2,.85,.2,1) both;
 }
@@ -206,20 +198,20 @@ body{
 }
 
 .art svg{
-  width:390px !important;
-  height:390px !important;
+  width:20.31vw !important;
+  height:20.31vw !important;
   display:block;
 }
 
 .coin{
-  width:330px;
-  height:330px;
+  width:17.19vw;
+  height:17.19vw;
   border-radius:50%;
   background:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:225px;
+  font-size:11.72vw;
   font-weight:700;
   color:#0A5730;
   line-height:1;
@@ -231,13 +223,13 @@ body{
   position:relative;
   width:100%;
   min-width:0;
-  padding-left:35px;
+  padding-left:1.82vw;
   z-index:2;
   animation:sube .9s cubic-bezier(.2,.85,.2,1) .18s both;
 }
 
 .kicker{
-  font-size:48px;
+  font-size:clamp(16px, 2.5vw, 48px);
   font-weight:700;
   letter-spacing:.18em;
   color:rgba(255,255,255,.78);
@@ -246,10 +238,10 @@ body{
 }
 
 .rule{
-  height:8px;
+  height:0.42vw;
   border-radius:4px;
-  width:190px;
-  margin:30px 0;
+  width:9.9vw;
+  margin:1.56vw 0;
 }
 
 .panel.b .rule{background:#5B9BFF}
@@ -257,7 +249,7 @@ body{
 .panel.g .rule{background:#48D98A}
 
 .mega{
-  font-size:285px;
+  font-size:clamp(70px, 14.84vw, 285px);
   font-weight:700;
   letter-spacing:-.055em;
   line-height:.82;
@@ -267,7 +259,7 @@ body{
 }
 
 .note{
-  font-size:62px;
+  font-size:clamp(18px, 3.23vw, 62px);
   font-weight:500;
   line-height:1.12;
   white-space:nowrap;
@@ -279,9 +271,9 @@ body{
   position:relative;
   overflow:hidden;
   background:#fff;
-  border-radius:26px;
-  padding:12px 58px;
-  margin-top:22px;
+  border-radius:1.35vw;
+  padding:0.63vw 3.02vw;
+  margin-top:1.15vw;
 }
 
 .plate i{
@@ -301,7 +293,7 @@ body{
 .plate b{
   position:relative;
   display:block;
-  font-size:250px;
+  font-size:clamp(65px, 13.02vw, 250px);
   font-weight:700;
   color:#8E1610;
   letter-spacing:.03em;
@@ -313,12 +305,12 @@ body{
 .free{
   display:inline-flex;
   align-items:center;
-  gap:28px;
+  gap:1.46vw;
   background:#fff;
-  border-radius:26px;
-  padding:30px 58px;
-  margin-top:22px;
-  font-size:95px;
+  border-radius:1.35vw;
+  padding:1.56vw 3.02vw;
+  margin-top:1.15vw;
+  font-size:clamp(28px, 4.95vw, 95px);
   font-weight:700;
   color:#0C6B33;
   line-height:1;
@@ -326,13 +318,13 @@ body{
 }
 
 .free svg{
-  width:85px !important;
-  height:85px !important;
+  width:4.43vw !important;
+  height:4.43vw !important;
 }
 
 /* ── TRM ────────────────────────────────────────────────── */
 .trm{
-  font-size:255px;
+  font-size:clamp(65px, 13.28vw, 255px);
   font-weight:700;
   letter-spacing:-.055em;
   line-height:.88;
@@ -344,21 +336,21 @@ body{
 .chip{
   display:inline-flex;
   align-items:center;
-  gap:24px;
+  gap:1.25vw;
   background:rgba(0,0,0,.30);
   border-radius:20px;
-  padding:24px 32px;
+  padding:1.25vw 1.67vw;
 }
 
 .chip .a{
-  font-size:62px;
+  font-size:clamp(18px, 3.23vw, 62px);
   font-weight:700;
   line-height:1;
   white-space:nowrap;
 }
 
 .chip .v{
-  font-size:58px;
+  font-size:clamp(18px, 3.02vw, 58px);
   font-weight:700;
   line-height:1.15;
   white-space:nowrap;
@@ -373,14 +365,14 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:24px;
+  gap:1.25vw;
   pointer-events:none;
   z-index:3;
 }
 
 .dots i{
-  height:18px;
-  width:18px;
+  height:0.94vw;
+  width:0.94vw;
   border-radius:999px;
   background:#fff;
   opacity:.35;
@@ -388,7 +380,7 @@ body{
 }
 
 .dots i.on{
-  width:78px;
+  width:4.06vw;
   opacity:1;
 }
 
@@ -469,40 +461,22 @@ body{
 </div>
 
 <script>
-(function () {
-  /* Escala el lienzo 1920x1080 para ocupar el máximo espacio
-     disponible de VNNOX/VPlayer, manteniendo 16:9 y centrado.
-     Se ejecuta también después de cada cambio de tamaño/orientación. */
-  function ajustarLienzoVNNOX(){
-    var app = document.getElementById('app');
-    if (!app) return;
-
-    var w = document.documentElement.clientWidth || window.innerWidth || 1920;
-    var h = document.documentElement.clientHeight || window.innerHeight || 1080;
-
-    var escala = Math.min(w / 1920, h / 1080);
-
-    /* Protección contra valores inválidos en WebView antiguos. */
-    if (!escala || escala <= 0 || !isFinite(escala)) escala = 1;
-
-    app.style.transform = 'scale(' + escala + ')';
-    app.style.webkitTransform = 'scale(' + escala + ')';
+/* V6: VNNOX recibe un documento que ya ocupa el viewport completo.
+   No se aplica ningún segundo escalado. */
+(function(){
+  function ocuparViewport(){
+    var app=document.getElementById('app');
+    if(!app) return;
+    app.style.width='100%';
+    app.style.height='100%';
+    app.style.transform='none';
+    app.style.webkitTransform='none';
   }
-
-  ajustarLienzoVNNOX();
-
-  if (window.addEventListener) {
-    window.addEventListener('resize', ajustarLienzoVNNOX, false);
-    window.addEventListener('orientationchange', function(){
-      setTimeout(ajustarLienzoVNNOX, 250);
-    }, false);
+  ocuparViewport();
+  if(window.addEventListener){
+    window.addEventListener('resize',ocuparViewport,false);
+    window.addEventListener('orientationchange',function(){setTimeout(ocuparViewport,100);},false);
   }
-
-  /* Algunos reproductores de señalización tardan en establecer
-     el viewport después de cargar la página. */
-  setTimeout(ajustarLienzoVNNOX, 100);
-  setTimeout(ajustarLienzoVNNOX, 500);
-  setTimeout(ajustarLienzoVNNOX, 1500);
 })();
 </script>
 <script>
