@@ -439,6 +439,157 @@ body{
   100%{transform:translateX(420%)}
 }
 
+
+
+/* =========================================================
+   V7 — AJUSTE FINAL PARA VNNOX / PANTALLAS MUY ANCHAS
+   En V6 el contenedor ya ocupa todo el viewport.
+   El problema restante era que tipografías/elementos estaban
+   calculados principalmente con vw; en un viewport muy ancho
+   crecían demasiado y se cortaban verticalmente.
+   V7 usa la altura (vh) para escalar el contenido, manteniendo
+   el ancho al 100% y evitando recortes.
+   ========================================================= */
+html, body, #app{
+  width:100%;
+  height:100%;
+  max-width:none;
+  max-height:none;
+}
+
+.head{
+  height:15.74vh;
+  padding:0 3.65%;
+  gap:2%;
+}
+
+.head img{
+  height:10.37vh;
+  max-height:112px;
+  max-width:32vw;
+}
+
+.clock{
+  gap:1.67vh;
+}
+
+.clock .t{
+  font-size:8.52vh;
+}
+
+.clock .ap{
+  font-size:2.78vh;
+}
+
+.clock .d{
+  font-size:2.59vh;
+  margin-left:1.67vh;
+}
+
+.tricolor{
+  left:3.65%;
+  right:3.65%;
+  height:4px;
+}
+
+#stage{
+  height:84.26vh;
+}
+
+.panel{
+  padding:0 4.95%;
+}
+
+.art svg{
+  width:36.11vh !important;
+  height:36.11vh !important;
+}
+
+.coin{
+  width:30.56vh;
+  height:30.56vh;
+  font-size:20.83vh;
+}
+
+.body{
+  padding-left:1.82%;
+}
+
+.kicker{
+  font-size:4.44vh;
+}
+
+.rule{
+  height:.74vh;
+  width:9.9vh;
+  margin:2.78vh 0;
+}
+
+.mega{
+  font-size:26.39vh;
+  margin-top:1.39vh;
+}
+
+.note{
+  font-size:5.74vh;
+}
+
+.plate{
+  border-radius:2.41vh;
+  padding:1.11vh 3.02vh;
+  margin-top:2.04vh;
+}
+
+.plate b{
+  font-size:23.15vh;
+}
+
+.free{
+  gap:2.59vh;
+  border-radius:2.41vh;
+  padding:2.78vh 5.37vh;
+  margin-top:2.04vh;
+  font-size:8.8vh;
+}
+
+.free svg{
+  width:7.87vh !important;
+  height:7.87vh !important;
+}
+
+.trm{
+  font-size:23.61vh;
+  margin-top:1.39vh;
+}
+
+.chip{
+  gap:2.22vh;
+  border-radius:1.85vh;
+  padding:2.22vh 2.96vh;
+}
+
+.chip .a{
+  font-size:5.74vh;
+}
+
+.chip .v{
+  font-size:5.37vh;
+}
+
+.dots{
+  bottom:2.59vh;
+  gap:2.22vh;
+}
+
+.dots i{
+  height:1.67vh;
+  width:1.67vh;
+}
+
+.dots i.on{
+  width:7.22vh;
+}
+
 </style>
 </head>
 <body>
