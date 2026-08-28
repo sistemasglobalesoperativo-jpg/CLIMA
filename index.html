@@ -29,33 +29,36 @@ html,body{
    Todo el diseño se construye en esta resolución y luego
    VNNOX/VPlayer escala el lienzo completo.
    ========================================================= */
+/* =========================================================
+   ADAPTACIÓN VNNOX / VPLAYER
+   Se evita calc() dentro de transform porque algunos WebView
+   antiguos (incluido Android) pueden no interpretarlo bien.
+   El tamaño y la posición se calculan por JavaScript.
+   ========================================================= */
 body{
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  position:fixed;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#000;
 }
 
 #app{
-  position:relative;
+  position:absolute;
+  left:50%;
+  top:50%;
   width:1920px;
   height:1080px;
-  flex:none;
+  margin-left:-960px;
+  margin-top:-540px;
   overflow:hidden;
   background:#000;
   transform-origin:center center;
-}
-
-/* Escalado automático del lienzo completo */
-@media (max-aspect-ratio: 1920/1080){
-  #app{
-    transform:scale(calc(100vw / 1920));
-  }
-}
-
-@media (min-aspect-ratio: 1920/1080){
-  #app{
-    transform:scale(calc(100vh / 1080));
-  }
+  transform:scale(1);
+  -webkit-transform-origin:center center;
+  -webkit-transform:scale(1);
 }
 
 /* ── Cabecera ───────────────────────────────────────────── */
@@ -465,6 +468,43 @@ body{
 
 </div>
 
+<script>
+(function () {
+  /* Escala el lienzo 1920x1080 para ocupar el máximo espacio
+     disponible de VNNOX/VPlayer, manteniendo 16:9 y centrado.
+     Se ejecuta también después de cada cambio de tamaño/orientación. */
+  function ajustarLienzoVNNOX(){
+    var app = document.getElementById('app');
+    if (!app) return;
+
+    var w = document.documentElement.clientWidth || window.innerWidth || 1920;
+    var h = document.documentElement.clientHeight || window.innerHeight || 1080;
+
+    var escala = Math.min(w / 1920, h / 1080);
+
+    /* Protección contra valores inválidos en WebView antiguos. */
+    if (!escala || escala <= 0 || !isFinite(escala)) escala = 1;
+
+    app.style.transform = 'scale(' + escala + ')';
+    app.style.webkitTransform = 'scale(' + escala + ')';
+  }
+
+  ajustarLienzoVNNOX();
+
+  if (window.addEventListener) {
+    window.addEventListener('resize', ajustarLienzoVNNOX, false);
+    window.addEventListener('orientationchange', function(){
+      setTimeout(ajustarLienzoVNNOX, 250);
+    }, false);
+  }
+
+  /* Algunos reproductores de señalización tardan en establecer
+     el viewport después de cargar la página. */
+  setTimeout(ajustarLienzoVNNOX, 100);
+  setTimeout(ajustarLienzoVNNOX, 500);
+  setTimeout(ajustarLienzoVNNOX, 1500);
+})();
+</script>
 <script>
 (function () {
   /* ═══════════════ CONFIGURACIÓN ═══════════════ */
