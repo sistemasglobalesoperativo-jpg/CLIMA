@@ -265,6 +265,14 @@ body{
   white-space:nowrap;
 }
 
+.sensacion{
+  display:block;
+  font-size:.58em;
+  font-weight:500;
+  margin-top:.28em;
+  opacity:.92;
+}
+
 /* ── Pico y placa ───────────────────────────────────────── */
 .plate{
   display:inline-block;
@@ -838,7 +846,9 @@ html, body, #app{
         '<div class="kicker">CLIMA EN CARTAGENA</div>' +
         '<div class="mega">' + (c ? Math.round(c.temperature_2m) + '°C' : '&mdash;') + '</div>' +
         '<div class="rule"></div>' +
-        '<div class="note">' + (c ? textoClima(c.weather_code) : 'Esperando datos') + '</div>' +
+        '<div class="note">' + (c ? textoClima(c.weather_code) : 'Esperando datos') +
+          (c ? '<span class="sensacion">Sensación térmica: ' + Math.round(c.apparent_temperature) + '°C</span>' : '') +
+        '</div>' +
       '</div></div>';
   }
 
@@ -925,7 +935,7 @@ html, body, #app{
     var url = 'https://api.open-meteo.com/v1/forecast' +
       '?latitude=' + LAT +
       '&longitude=' + LON +
-      '&current=temperature_2m,weather_code,is_day' +
+      '&current=temperature_2m,apparent_temperature,weather_code,is_day' +
       '&timezone=America%2FBogota' +
       '&temperature_unit=celsius' +
       cacheBust;
@@ -942,6 +952,7 @@ html, body, #app{
     .then(function (j){
       if (!j || !j.current ||
           typeof j.current.temperature_2m !== 'number' ||
+          typeof j.current.apparent_temperature !== 'number' ||
           typeof j.current.weather_code !== 'number') {
         throw new Error('Respuesta de clima incompleta');
       }
