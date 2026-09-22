@@ -109,20 +109,7 @@ body{
   margin-left:18px;
 }
 
-.tricolor{
-  position:absolute;
-  left:3.65vw;
-  right:3.65vw;
-  bottom:0;
-  height:4px;
-  opacity:.9;
-  background:linear-gradient(
-    90deg,
-    #5B9BFF 0 33.34%,
-    #FF6A5E 33.34% 66.67%,
-    #48D98A 66.67% 100%
-  );
-}
+
 
 /* ── Escenario ──────────────────────────────────────────── */
 #stage{
@@ -615,9 +602,7 @@ html, body, #app{
     <div class="clock">
       <span class="t" id="hora">--:--:--</span>
       <span class="ap" id="ampm"></span>
-      <span class="d" id="fecha">&mdash;</span>
     </div>
-    <div class="tricolor"></div>
   </div>
 
   <div id="stage">
@@ -775,10 +760,8 @@ html, body, #app{
   /* ── Reloj ── */
   function reloj(){
     var d = new Date(), h = d.getHours(), h12 = h % 12 || 12;
-    $('hora').textContent  = p2(h12) + ':' + p2(d.getMinutes()) + ':' + p2(d.getSeconds());
-    $('ampm').textContent  = h < 12 ? 'a. m.' : 'p. m.';
-    $('fecha').textContent = DIAS[d.getDay()] + ', ' + d.getDate() + ' de ' +
-                             MESES[d.getMonth()] + ' de ' + d.getFullYear();
+    $('hora').textContent = p2(h12) + ':' + p2(d.getMinutes()) + ':' + p2(d.getSeconds());
+    $('ampm').textContent = h < 12 ? 'a. m.' : 'p. m.';
   }
   reloj();
   setInterval(reloj, 1000);
@@ -806,6 +789,11 @@ html, body, #app{
       '<g stroke="#7FC4FF" stroke-width="7" stroke-linecap="round">' +
       '<line x1="40" y1="76" x2="34" y2="94"/><line x1="58" y1="76" x2="52" y2="94"/>' +
       '<line x1="76" y1="76" x2="70" y2="94"/></g></svg>',
+    tormenta: '<svg viewBox="0 0 110 100" style="' + GR + '">' +
+      '<path d="M28 62h50a18 18 0 0 0 1-36 23 23 0 0 0-43-6 17 17 0 0 0-8 42z" fill="#ccc"/>' +
+      '<g stroke="#7FC4FF" stroke-width="6" stroke-linecap="round">' +
+      '<line x1="38" y1="72" x2="32" y2="88"/><line x1="72" y1="72" x2="66" y2="88"/></g>' +
+      '<polyline points="58,62 48,80 56,80 46,100" stroke="#FFC93C" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>',
     noche: '<svg viewBox="0 0 100 100" style="' + CI + '">' +
       '<path d="M62 20a30 30 0 1 0 16 52 25 25 0 0 1-16-52z" fill="#E8EEFF"/>' +
       '<circle cx="80" cy="30" r="3.4" fill="#E8EEFF"/><circle cx="88" cy="48" r="2.6" fill="#E8EEFF"/></svg>'
@@ -821,6 +809,7 @@ html, body, #app{
 
   function claseClima(code, esDia){
     if (!esDia) return 'noche';
+    if (code >= 95) return 'tormenta';
     if (code === 0 || code === 1) return 'sol';
     if (code >= 51) return 'lluvia';
     return 'solNubes';
@@ -972,12 +961,38 @@ html, body, #app{
     });
   }
   function cargarTRM(){
-    return fetch('https://www.datos.gov.co/resource/32sa-8pi3.json?$order=vigenciadesde%20DESC&$limit=2',
-        { cache: 'no-store' })
-      .then(function (r){ return r.json(); })
-      .then(function (f){
-        var v = parseFloat(f[0].valor), p = parseFloat(f[1].valor);
+    /*
+     * Frankfurter.app → API pública, sin clave, CORS abierto.
+     * Devuelve la tasa oficial del día actual (o último día hábil).
+     * COP = pesos colombianos por 1 USD.
+     * Se piden también los 5 días anteriores para calcular variación
+     * respecto al día hábil inmediatamente anterior.
+     */
+    var hoy = new Date();
+    /* Retrocedemos 7 días para asegurar capturar el día hábil previo */
+    var hace7 = new Date(hoy.getTime() - 7 * 24 * 60 * 60 * 1000);
+    function fiso(d){ return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate()); }
+    var url = 'https://api.frankfurter.app/' + fiso(hace7) + '..' + fiso(hoy) +
+              '?from=USD&to=COP';
+    return fetch(url, { cache:'no-store' })
+      .then(function(r){ if(!r.ok) throw new Error('Frankfurter HTTP '+r.status); return r.json(); })
+      .then(function(j){
+        var fechas = Object.keys(j.rates).sort();
+        if (fechas.length < 2) throw new Error('Pocos datos TRM');
+        var ult  = fechas[fechas.length - 1];
+        var prev = fechas[fechas.length - 2];
+        var v = j.rates[ult].COP;
+        var p = j.rates[prev].COP;
         datos.trm = { valor: v, variacion: v - p, variacionPct: ((v - p) / p) * 100 };
+      })
+      .catch(function(){
+        /* Fallback: exchangerate-api (también gratuita, sin clave) */
+        return fetch('https://open.er-api.com/v6/latest/USD', { cache:'no-store' })
+          .then(function(r){ return r.json(); })
+          .then(function(j){
+            var v = j.rates.COP;
+            datos.trm = { valor: v, variacion: 0, variacionPct: 0 };
+          });
       });
   }
   function refrescar(){
