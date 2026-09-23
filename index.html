@@ -920,17 +920,18 @@ html, body, #app{
     stage.insertAdjacentHTML('afterbegin', PANELES[i]());
     for (var n = 0; n < 3; n++) dots[n].className = (n === i ? 'on' : '');
   }
-  function rotar(){
-    i = (i + 1) % PANELES.length;
-    pintar();
-  }
+  /* Una sola vuelta: 3 paneles x 5s = 15 segundos, luego se detiene. */
   pintar();
-  setInterval(rotar, SEGUNDOS_PANEL * 1000);
-
-  /* Re-pintar el panel si cambia el día/rotación mientras VNNOX está encendido. */
-  setInterval(function(){
-    if (i === 1) pintar();
-  }, 60 * 1000);
+  var vuelta = 0;
+  var timer = setInterval(function(){
+    vuelta++;
+    if (vuelta >= PANELES.length) {
+      clearInterval(timer); // Para después del tercer panel
+      return;
+    }
+    i = vuelta;
+    pintar();
+  }, SEGUNDOS_PANEL * 1000);
 
   /* ── Fuentes de datos: cada una falla por separado ── */
   function cargarClima(){
